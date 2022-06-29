@@ -54,6 +54,7 @@
         $user_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 
+
         //check if there is a user_id available in URL string, then prepare and execute a query that will return the information associated with the user_id selected and echo in the form 
 
         if (!empty($user_id) && $user_id !== false)
@@ -89,13 +90,22 @@
             //create variables to store form data, using filter input to validate & sanitize 
             /*https://www.php.net/manual/en/filter.filters.sanitize.php*/
             $input_taskname = filter_input(INPUT_POST, 'tname', FILTER_SANITIZE_SPECIAL_CHARS);
-            $input_category = filter_input(INPUT_POST, 'tcategory', FILTER_SANITIZE_SPECIAL_CHARS);
-            $input_date = filter_input(INPUT_POST, 'tdate', FILTER_VALIDATE_INT, FILTER_SANITIZE_NUMBER_INT);
+            //should be category not tcategory - category is the value of the name attribute of your select element, tcategory is the id attribute value 
+            $input_category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            /*$input_date = filter_input(INPUT_POST, 'tdate', FILTER_VALIDATE_INT, FILTER_SANITIZE_NUMBER_INT);
+            in the format received via the datepicker, the date is not an integer, so we can remove the validation filter and just check that the user has provided a date 
+            */
+
+            $input_date = filter_input(INPUT_POST, 'tdate');
+
             $input_time = filter_input(INPUT_POST, 'ttime', FILTER_VALIDATE_INT, FILTER_SANITIZE_NUMBER_INT);
             
             //if editing, capture the id from the hidden input 
             $id = null;
             $id = filter_input(INPUT_POST, 'user_id');
+
+            echo "<p> the date is $input_date; </p>"; 
 
 
             $secret = '6LfePG4gAAAAAASIYzASMEqTP1LD44Q5LVsv3NU9';
@@ -194,6 +204,7 @@
              </div>
              <div>
                <label for="tdate"> Due Date </label>
+
                <input type="date" name="tdate" class="form-control" id="tdate" value="<?php echo $date; ?>" required>
              </div>
              <div class="form-group">

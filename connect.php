@@ -2,11 +2,11 @@
 
 try 
 { 
-    $dsn = 'mysql:host=172.31.22.43;dbname=Bhavneet200504132';
+    $dsn = 'mysql:host=;dbname=';
   
-    $username = 'Bhavneet200504132'; 
+    $username = ''; 
 
-    $password = 'RbqCxNnfI4';
+    $password = '';
     $db = new PDO($dsn, $username, $password);
    
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
